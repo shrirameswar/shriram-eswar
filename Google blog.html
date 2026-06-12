@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConflictWatch - International Affairs & Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: '#1a1a2e',
+                        accent: '#e94560',
+                        secondary: '#16213e',
+                        muted: '#0f3460',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .hero-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        .tag-pulse:hover {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md border-b border-gray-200 z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-accent to-red-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-globe-americas text-white text-sm"></i>
+                    </div>
+                    <span class="font-serif text-2xl font-bold text-primary tracking-tight">Conflict<span class="text-accent">Watch</span></span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-accent font-medium transition-colors">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-accent font-medium transition-colors">Analysis</a>
+                    <a href="#" class="text-gray-700 hover:text-accent font-medium transition-colors">Regions</a>
+                    <a href="#" class="text-gray-700 hover:text-accent font-medium transition-colors">Timeline</a>
+                    <button onclick="openEditor()" class="bg-accent hover:bg-red-700 text-white px-5 py-2 rounded-full font-medium transition-all transform hover:scale-105 shadow-lg shadow-red-500/30">
+                        <i class="fas fa-pen-nib mr-2"></i>Write Post
+                    </button>
+                </div>
+
+                <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Home</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Analysis</a>
+                <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md">Regions</a>
+                <button onclick="openEditor()" class="w-full mt-2 bg-accent text-white px-4 py-2 rounded-lg">Write Post</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-primary text-white pt-32 pb-20 overflow-hidden hero-pattern">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-muted opacity-90"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-fade-in">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/20 text-sm font-medium mb-6 backdrop-blur-sm">
+                        <span class="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
+                        Live Coverage
+                    </div>
+                    <h1 class="font-serif text-5xl md:text-7xl font-bold leading-tight mb-6">
+                        Understanding Global <span class="gradient-text">Conflicts</span>
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-8 leading-relaxed max-w-lg">
+                        In-depth analysis, real-time updates, and expert perspectives on international affairs shaping our world.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="scrollToPosts()" class="bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-xl">
+                            Explore Stories
+                        </button>
+                        <button class="border-2 border-white/30 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition-all">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Featured Post Card -->
+                <div class="relative animate-fade-in" style="animation-delay: 0.2s;">
+                    <div class="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
+                        <div class="h-64 bg-gradient-to-br from-gray-700 to-gray-900 relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-newspaper text-6xl text-white/20"></i>
+                            </div>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Featured</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-400 mb-3">
+                                <span class="mr-4"><i class="far fa-clock mr-1"></i> 2 hours ago</span>
+                                <span><i class="far fa-user mr-1"></i> Editorial Team</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold mb-3 text-white">Latest Analysis: Shifting Alliances in the Asia-Pacific Region</h3>
+                            <p class="text-gray-300 mb-4 line-clamp-2">An examination of the evolving geopolitical landscape and emerging security frameworks across the Pacific...</p>
+                            <button class="text-accent font-semibold hover:text-white transition-colors flex items-center group">
+                                Read Full Analysis 
+                                <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="bg-white border-b border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-3xl font-bold text-primary">127</div>
+                    <div class="text-sm text-gray-500 mt-1">Active Conflicts</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-primary">48</div>
+                    <div class="text-sm text-gray-500 mt-1">Countries Affected</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-primary">2.4k</div>
+                    <div class="text-sm text-gray-500 mt-1">Articles Published</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-primary">156</div>
+                    <div class="text-sm text-gray-500 mt-1">Expert Contributors</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter & Search Section -->
+    <section class="sticky top-16 bg-white/95 backdrop-blur-md border-b border-gray-200 z-40 py-4" id="postsSection">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex overflow-x-auto pb-2 md:pb-0 gap-2 w-full md:w-auto scrollbar-hide">
+                    <button onclick="filterPosts('all')" class="filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-primary text-white transition-all whitespace-nowrap" data-filter="all">All Regions</button>
+                    <button onclick="filterPosts('europe')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all whitespace-nowrap" data-filter="europe">Europe</button>
+                    <button onclick="filterPosts('middle-east')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all whitespace-nowrap" data-filter="middle-east">Middle East</button>
+                    <button onclick="filterPosts('asia')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all whitespace-nowrap" data-filter="asia">Asia-Pacific</button>
+                    <button onclick="filterPosts('africa')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all whitespace-nowrap" data-filter="africa">Africa</button>
+                    <button onclick="filterPosts('americas')" class="filter-btn px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-all whitespace-nowrap" data-filter="americas">Americas</button>
+                </div>
+                
+                <div class="relative w-full md:w-64">
+                    <input type="text" id="searchInput" placeholder="Search articles..." 
+                           class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
+                           onkeyup="searchPosts()">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts Grid -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h2 class="font-serif text-3xl font-bold text-primary">Latest Analysis</h2>
+                <p class="text-gray-500 mt-1">Expert insights and breaking developments</p>
+            </div>
+            <div class="hidden md:flex items-center gap-2 text-sm text-gray-500">
+                <span>Sort by:</span>
+                <select id="sortSelect" onchange="sortPosts()" class="border-none bg-transparent font-medium text-primary focus:outline-none cursor-pointer">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="popular">Most Popular</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="postsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Posts will be injected here by JavaScript -->
+        </div>
+
+        <div id="noResults" class="hidden text-center py-20">
+            <div class="text-6xl mb-4">🔍</div>
+            <h3 class="text-xl font-bold text-gray-700 mb-2">No articles found</h3>
+            <p class="text-gray-500">Try adjusting your search or filter criteria</p>
+        </div>
+
+        <div class="mt-12 text-center">
+            <button id="loadMoreBtn" onclick="loadMorePosts()" class="px-8 py-3 border-2 border-primary text-primary rounded-full font-semibold hover:bg-primary hover:text-white transition-all">
+                Load More Articles
+            </button>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="bg-primary text-white py-20 relative overflow-hidden">
+        <div class="absolute inset-0 hero-pattern opacity-20"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <i class="fas fa-paper-plane text-4xl text-accent mb-6"></i>
+            <h2 class="font-serif text-4xl font-bold mb-4">Stay Informed</h2>
+            <p class="text-gray-300 mb-8 text-lg">Get weekly analysis and breaking conflict alerts delivered to your inbox.</p>
+            <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+                <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-accent backdrop-blur-sm">
+                <button type="submit" class="px-8 py-3 bg-accent hover:bg-red-700 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg shadow-red-500/30">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-6 h-6 bg-gradient-to-br from-accent to-red-600 rounded flex items-center justify-center">
+                            <i class="fas fa-globe-americas text-white text-xs"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-white">ConflictWatch</span>
+                    </div>
+                    <p class="text-sm leading-relaxed">Independent journalism and analysis on international conflicts and geopolitical affairs.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Regions</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Europe</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Middle East</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Asia-Pacific</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Africa</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contributors</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Editorial Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-accent transition-colors text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-accent transition-colors text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-accent transition-colors text-white">
+                            <i class="fab fa-rss"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p> ConflictWatch. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Write Post Modal -->
+    <div id="editorModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center rounded-t-2xl">
+                <h2 class="font-serif text-2xl font-bold text-primary">Create New Post</h2>
+                <button onclick="closeEditor()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                    <input type="text" id="postTitle" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 text-lg font-semibold" placeholder="Enter article title...">
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Region</label>
+                        <select id="postRegion" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20">
+                            <option value="europe">Europe</option>
+                            <option value="middle-east">Middle East</option>
+                            <option value="asia">Asia-Pacific</option>
+                            <option value="africa">Africa</option>
+                            <option value="americas">Americas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <select id="postCategory" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20">
+                            <option value="analysis">Analysis</option>
+                            <option value="breaking">Breaking News</option>
+                            <option value="opinion">Opinion</option>
+                            <option value="interview">Interview</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
+                    <textarea id="postExcerpt" rows="2" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 resize-none" placeholder="Brief summary of the article..."></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                    <div class="border border-gray-300 rounded-lg overflow-hidden">
+                        <div class="bg-gray-50 border-b border-gray-300 px-4 py-2 flex gap-2">
+                            <button class="p-1 hover:bg-gray-200 rounded transition-colors" title="Bold"><i class="fas fa-bold"></i></button>
+                            <button class="p-1 hover:bg-gray-200 rounded transition-colors" title="Italic"><i class="fas fa-italic"></i></button>
+                            <button class="p-1 hover:bg-gray-200 rounded transition-colors" title="Link"><i class="fas fa-link"></i></button>
+                            <button class="p-1 hover:bg-gray-200 rounded transition-colors" title="Quote"><i class="fas fa-quote-right"></i></button>
+                        </div>
+                        <textarea id="postContent" rows="10" class="w-full px-4 py-3 focus:outline-none resize-none" placeholder="Write your article here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-4 pt-4">
+                    <button onclick="closeEditor()" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors font-medium">Cancel</button>
+                    <button onclick="publishPost()" class="px-6 py-3 bg-accent hover:bg-red-700 text-white rounded-lg font-medium transition-all transform hover:scale-105 shadow-lg shadow-red-500/30">
+                        <i class="fas fa-paper-plane mr-2"></i>Publish Post
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article View Modal -->
+    <div id="articleModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center rounded-t-2xl z-10">
+                <button onclick="closeArticle()" class="flex items-center text-gray-500 hover:text-primary transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Back to feed
+                </button>
+                <div class="flex gap-2">
+                    <button class="p-2 hover:bg-gray-100 rounded-full transition-colors" title="Share">
+                        <i class="fas fa-share-alt text-gray-600"></i>
+                    </button>
+                    <button class="p-2 hover:bg-gray-100 rounded-full transition-colors" title="Bookmark">
+                        <i class="far fa-bookmark text-gray-600"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="articleContent" class="p-6 md:p-10">
+                <!-- Article content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample blog posts data
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Diplomatic Tensions Rise in Eastern Mediterranean",
+                excerpt: "Naval deployments and energy disputes escalate longstanding territorial disagreements between regional powers, raising concerns among NATO allies.",
+                content: "The Eastern Mediterranean has become a focal point of geopolitical tension as naval deployments and energy disputes escalate longstanding territorial disagreements between regional powers. Recent discoveries of natural gas reserves have intensified competing claims over exclusive economic zones, drawing in both regional actors and major powers with strategic interests in the area.\n\nDiplomatic channels remain open, but military posturing continues to increase. NATO allies have expressed concern over the potential for miscalculation, urging all parties to pursue dialogue and adhere to international law. The European Union has also signaled its readiness to impose targeted measures should aggressive actions continue.",
+                region: "europe",
+                category: "analysis",
+                author: "Sarah Mitchell",
+                date: "2026-06-07",
+                readTime: "8 min read",
+                views: 1240,
+                tags: ["Diplomacy", "Energy", "NATO"]
+            },
+            {
+                id: 2,
+                title: "Humanitarian Corridor Opens in Conflict Zone",
+                excerpt: "International organizations coordinate relief efforts as a temporary ceasefire allows aid to reach civilian populations affected by weeks of fighting.",
+                content: "A humanitarian corridor has finally opened in the conflict zone after weeks of intense negotiations. International organizations are now coordinating relief efforts to reach civilian populations that have been trapped without access to basic necessities.\n\nThe temporary ceasefire, brokered by regional mediators, represents a fragile but critical opportunity to deliver food, medical supplies, and clean water to affected communities. Aid workers on the ground describe the situation as dire, with hospitals overwhelmed and infrastructure severely damaged.\n\nThe United Nations has called for the ceasefire to be extended indefinitely, emphasizing that sustainable peace requires addressing the root causes of the conflict.",
+                region: "middle-east",
+                category: "breaking",
+                author: "James Chen",
+                date: "2026-06-06",
+                readTime: "5 min read",
+                views: 2890,
+                tags: ["Humanitarian", "Ceasefire", "UN"]
+            },
+            {
+                id: 3,
+                title: "Pacific Island Nations Form Security Pact",
+                excerpt: "A new collective security agreement signals shifting alliances in the Asia-Pacific as smaller states seek to balance great power competition.",
+                content: "Pacific Island nations have signed a groundbreaking collective security agreement, signaling a significant shift in regional alliances. The pact, which includes mutual defense provisions and intelligence sharing, represents an unprecedented level of coordination among the island states.\n\nAnalysts view this development as a response to growing great power competition in the region. The agreement establishes a framework for joint maritime patrols and disaster response, while maintaining neutrality in broader geopolitical disputes.\n\nDiplomatic experts suggest this could serve as a model for other small-state coalitions seeking to preserve sovereignty amid rising tensions between major powers.",
+                region: "asia",
+                category: "analysis",
+                author: "Maria Santos",
+                date: "2026-06-05",
+                readTime: "7 min read",
+                views: 1560,
+                tags: ["Security", "Pacific", "Alliances"]
+            },
+            {
+                id: 4,
+                title: "Peace Talks Resume in Long-Running Dispute",
+                excerpt: "After months of stalled negotiations, delegations return to the table with modified proposals aimed at breaking the deadlock.",
+                content: "Peace talks have resumed after months of deadlock, with both delegations arriving with modified proposals that address key sticking points. The negotiation process, facilitated by international mediators, has entered a critical phase where compromise appears possible on several core issues.\n\nObservers note a subtle shift in tone from both sides, with increased willingness to consider confidence-building measures. Economic incentives and security guarantees form the backbone of the new proposal package, designed to address mutual concerns about vulnerability.\n\nWhile significant hurdles remain, the resumption of dialogue itself represents a victory for those advocating diplomatic solutions over military confrontation.",
+                region: "africa",
+                category: "breaking",
+                author: "David Okonkwo",
+                date: "2026-06-04",
+                readTime: "6 min read",
+                views: 980,
+                tags: ["Peace Talks", "Diplomacy", "Negotiation"]
+            },
+            {
+                id: 5,
+                title: "Cyber Warfare Escalates Between Regional Rivals",
+                excerpt: "Critical infrastructure targets face unprecedented digital attacks as state-sponsored hacking operations intensify amid political tensions.",
+                content: "Cyber warfare has reached new levels of intensity as state-sponsored hacking operations target critical infrastructure. Power grids, financial systems, and communication networks have all come under sustained digital assault, causing significant disruption to civilian services.\n\nCybersecurity experts report that the attacks demonstrate sophisticated capabilities and careful planning, suggesting well-resourced state backing. The digital conflict runs parallel to traditional diplomatic tensions, creating a hybrid warfare environment that complicates international response.\n\nInternational law regarding cyber warfare remains underdeveloped, leaving victims with limited recourse and raising questions about proportional response and escalation management.",
+                region: "asia",
+                category: "analysis",
+                author: "Alex Rivera",
+                date: "2026-06-03",
+                readTime: "9 min read",
+                views: 2100,
+                tags: ["Cybersecurity", "Technology", "Hybrid Warfare"]
+            },
+            {
+                id: 6,
+                title: "Refugee Crisis Demands International Response",
+                excerpt: "Border crossings surge as displacement reaches levels not seen in decades, overwhelming neighboring countries' capacity to provide shelter.",
+                content: "A refugee crisis of historic proportions is unfolding as conflict drives displacement levels not seen in decades. Border crossings have surged, overwhelming neighboring countries' capacity to provide basic shelter, food, and medical care.\n\nInternational aid organizations have launched emergency appeals, but funding gaps remain significant. Host communities, while initially welcoming, are showing signs of strain as resources become scarce and temporary solutions prove inadequate for long-term needs.\n\nThe crisis highlights the need for comprehensive international frameworks that address both immediate humanitarian needs and the political solutions required to enable safe return.",
+                region: "middle-east",
+                category: "breaking",
+                author: "Leila Hassan",
+                date: "2026-06-02",
+                readTime: "5 min read",
+                views: 3200,
+                tags: ["Refugees", "Humanitarian", "Migration"]
+            }
+        ];
+
+        let currentPosts = [...blogPosts];
+        let currentFilter = 'all';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPosts(currentPosts);
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-md');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                }
+            });
+        });
+
+        function renderPosts(posts) {
+            const grid = document.getElementById('postsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            if (posts.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+            
+            noResults.classList.add('hidden');
+            
+            grid.innerHTML = posts.map((post, index) => `
+                <article class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 card-hover cursor-pointer group" 
+                         onclick="openArticle(${post.id})"
+                         style="animation: fadeIn 0.5s ease-out ${index * 0.1}s forwards; opacity: 0;">
+                    <div class="h-48 bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-newspaper text-5xl text-gray-400/50"></i>
+                        </div>
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-white/90 backdrop-blur-sm text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                                ${post.category}
+                            </span>
+                        </div>
+                        <div class="absolute bottom-4 right-4">
+                            <span class="bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium">
+                                ${post.readTime}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-semibold text-accent uppercase tracking-wider">${post.region.replace('-', ' ')}</span>
+                            <span class="text-xs text-gray-400">${post.date}</span>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-primary mb-3 group-hover:text-accent transition-colors line-clamp-2">
+                            ${post.title}
+                        </h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                            ${post.excerpt}
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <div class="flex items-center text-sm text-gray-500">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white text-xs font-bold mr-2">
+                                    ${post.author.split(' ').map(n => n[0]).join('')}
+                                </div>
+                                <span class="font-medium text-gray-700">${post.author}</span>
+                            </div>
+                            <div class="flex items-center text-sm text-gray-400">
+                                <i class="far fa-eye mr-1"></i>
+                                <span>${post.views.toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 mt-4">
+                            ${post.tags.map(tag => `
+                                <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-md hover:bg-accent hover:text-white transition-colors cursor-pointer tag-pulse">
+                                    #${tag}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function filterPosts(region) {
+            currentFilter = region;
+            
+            // Update button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === region) {
+                    btn.classList.remove('bg-gray-100', 'text-gray-700');
+                    btn.classList.add('bg-primary', 'text-white');
+                } else {
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                    btn.classList.remove('bg-primary', 'text-white');
+                }
+            });
+            
+            if (region === 'all') {
+                currentPosts = [...blogPosts];
+            } else {
+                currentPosts = blogPosts.filter(post => post.region === region);
+            }
+            
+            // Re-apply search if active
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                currentPosts = currentPosts.filter(post => 
+                    post.title.toLowerCase().includes(searchTerm) || 
+                    post.excerpt.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderPosts(currentPosts);
+        }
+
+        function searchPosts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            let filtered = blogPosts;
+            
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(post => post.region === currentFilter);
+            }
+            
+            if (searchTerm) {
+                filtered = filtered.filter(post => 
+                    post.title.toLowerCase().includes(searchTerm) || 
+                    post.excerpt.toLowerCase().includes(searchTerm) ||
+                    post.author.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            currentPosts = filtered;
+            renderPosts(currentPosts);
+        }
+
+        function sortPosts() {
+            const sortType = document.getElementById('sortSelect').value;
+            let sorted = [...currentPosts];
+            
+            switch(sortType) {
+                case 'newest':
+                    sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'oldest':
+                    sorted.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    break;
+                case 'popular':
+                    sorted.sort((a, b) => b.views - a.views);
+                    break;
+            }
+            
+            renderPosts(sorted);
+        }
+
+        function loadMorePosts() {
+            const btn = document.getElementById('loadMoreBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
+            btn.disabled = true;
+            
+            // Simulate loading
+            setTimeout(() => {
+                // Add dummy posts for demo
+                const newPosts = [
+                    {
+                        id: 7,
+                        title: "Arms Control Treaty Under Review",
+                        excerpt: "Major powers gather to discuss the future of strategic arms limitations as technological advances challenge existing frameworks.",
+                        content: "Diplomatic representatives from major powers have convened to review the existing arms control treaty framework. Emerging technologies, including hypersonic weapons and autonomous systems, have created gaps in current agreements that negotiators are struggling to address.\n\nThe review process comes at a critical juncture, with several signatories expressing concerns about compliance and verification. Proposals for expanded protocols cover new domains, including space and cyber capabilities.",
+                        region: "europe",
+                        category: "analysis",
+                        author: "Robert Klein",
+                        date: "2026-06-01",
+                        readTime: "10 min read",
+                        views: 890,
+                        tags: ["Arms Control", "Diplomacy", "Security"]
+                    },
+                    {
+                        id: 8,
+                        title: "Economic Sanctions Impact Regional Trade",
+                        excerpt: "New restrictions disrupt supply chains and force trading partners to seek alternative routes and markets.",
+                        content: "Economic sanctions have begun to significantly impact regional trade patterns, disrupting established supply chains and forcing trading partners to seek alternative routes. The measures, targeting key sectors including energy and finance, have created ripple effects across multiple economies.\n\nBusinesses are adapting by diversifying suppliers and exploring new markets, but transition costs remain high. Some analysts argue that the sanctions may accelerate economic realignment in ways that reduce long-term dependence on traditional trade relationships.",
+                        region: "americas",
+                        category: "analysis",
+                        author: "Elena Vasquez",
+                        date: "2026-05-31",
+                        readTime: "7 min read",
+                        views: 1450,
+                        tags: ["Economy", "Sanctions", "Trade"]
+                    }
+                ];
+                
+                blogPosts.push(...newPosts);
+                currentPosts = [...currentPosts, ...newPosts];
+                renderPosts(currentPosts);
+                
+                btn.innerHTML = 'Load More Articles';
+                btn.disabled = false;
+            }, 1000);
+        }
+
+        function openArticle(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (!post) return;
+            
+            const modal = document.getElementById('articleModal');
+            const content = document.getElementById('articleContent');
+            
+            content.innerHTML = `
+                <div class="mb-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-semibold uppercase">${post.category}</span>
+                        <span class="text-gray-400 text-sm">${post.date}</span>
+                    </div>
+                    <h1 class="font-serif text-3xl md:text-4xl font-bold text-primary mb-4 leading-tight">${post.title}</h1>
+                    <div class="flex items-center justify-between py-4 border-y border-gray-100">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold mr-3">
+                                ${post.author.split(' ').map(n => n[0]).join('')}
+                            </div>
+                            <div>
+                                <div class="font-semibold text-primary">${post.author}</div>
+                                <div class="text-sm text-gray-500">Conflict Analyst</div>
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <i class="far fa-clock mr-1"></i> ${post.readTime}
+                            <span class="mx-2">•</span>
+                            <i class="far fa-eye mr-1"></i> ${post.views.toLocaleString()} views
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                    <p class="font-serif text-xl text-gray-600 italic mb-8 border-l-4 border-accent pl-4">${post.excerpt}</p>
+                    ${post.content.split('\n\n').map(para => `<p class="mb-4">${para}</p>`).join('')}
+                </div>
+                
+                <div class="mt-8 pt-6 border-t border-gray-100">
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        ${post.tags.map(tag => `
+                            <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm hover:bg-accent hover:text-white transition-colors cursor-pointer">#${tag}</span>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+                        <div class="text-sm text-gray-600">Was this article helpful?</div>
+                        <div class="flex gap-2">
+                            <button class="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-green-50 hover:border-green-200 hover:text-green-600 transition-all text-sm font-medium">
+                                <i class="far fa-thumbs-up mr-1"></i> Yes
+                            </button>
+                            <button class="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-all text-sm font-medium">
+                                <i class="far fa-thumbs-down mr-1"></i> No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeArticle() {
+            const modal = document.getElementById('articleModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function openEditor() {
+            const modal = document.getElementById('editorModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEditor() {
+            const modal = document.getElementById('editorModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+            
+            // Clear form
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postExcerpt').value = '';
+            document.getElementById('postContent').value = '';
+        }
+
+        function publishPost() {
+            const title = document.getElementById('postTitle').value;
+            const excerpt = document.getElementById('postExcerpt').value;
+            const region = document.getElementById('postRegion').value;
+            const category = document.getElementById('postCategory').value;
+            const content = document.getElementById('postContent').value;
+            
+            if (!title || !excerpt || !content) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const newPost = {
+                id: Date.now(),
+                title,
+                excerpt,
+                content,
+                region,
+                category,
+                author: "You",
+                date: new Date().toISOString().split('T')[0],
+                readTime: "5 min read",
+                views: 0,
+                tags: ["New"]
+            };
+            
+            blogPosts.unshift(newPost);
+            currentPosts = [...blogPosts];
+            renderPosts(currentPosts);
+            closeEditor();
+            
+            // Show success notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
+            notification.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Article published successfully!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function scrollToPosts() {
+            document.getElementById('postsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Close modals on outside click
+        document.getElementById('editorModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeEditor();
+        });
+        
+        document.getElementById('articleModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeArticle();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeEditor();
+                closeArticle();
+            }
+        });
+    </script>
+</body>
+</html>
